@@ -99,7 +99,7 @@ library(PhyloMarkovChains)
 library(phangorn)
 library(tidyverse)
 
-n <- 6
+n <- 5
 all.splits <- sapply(allSplits(n + 1),  paste, collapse = "")
 J <- length(all.splits)
 
@@ -175,3 +175,13 @@ all.errors.dt[which.max(all.errors.dt$error), ]
 
 all.errors.dt[which.min(all.errors.dt$bound), ]
 all.errors.dt[which.max(all.errors.dt$bound), ]
+
+library(ggplot2)
+
+ggplot(all.errors.dt,
+       aes(x = bound, y = error,
+           colour = rspr_dist)) +
+   geom_point() +
+  facet_wrap(clade~., scales = "free") +
+  geom_abline(intercept = 0, slope = 1, linetype = "longdash") + 
+  theme_bw(base_size = 20)
