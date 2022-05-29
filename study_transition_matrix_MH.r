@@ -160,6 +160,10 @@ all.errors <- parallel::mclapply(all.ntclades,
 
 all.errors.dt <- do.call(rbind, all.errors)
 
+write.csv(all.errors.dt,
+          file = paste0("csv/errors_n=", n, ".csv"),
+          row.names = FALSE)
+
 ## Plotting
 boxplot(error ~ rspr_dist, all.errors.dt)
 boxplot(bound ~ rspr_dist, all.errors.dt)
@@ -178,10 +182,22 @@ all.errors.dt[which.max(all.errors.dt$bound), ]
 
 library(ggplot2)
 
-ggplot(all.errors.dt,
+vsbound <- ggplot(all.errors.dt,
        aes(x = bound, y = error,
            colour = rspr_dist)) +
    geom_point() +
   facet_wrap(clade~., scales = "free") +
   geom_abline(intercept = 0, slope = 1, linetype = "longdash") + 
   theme_bw(base_size = 20)
+
+vsbound
+
+ggsave(
+  plot = vsbound,
+  filename = paste0("plots/errors_vs_bound_n=", n, ".pdf"),
+  scale = 1,
+  width = 297,
+  height = 210,
+  units = "mm",
+  dpi = 300 
+)
