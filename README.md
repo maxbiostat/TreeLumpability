@@ -1,6 +1,4 @@
-# Tree Lumpability
-
-Studying lumpability of tree-valued Markov chains.
+# Studying lumpability of tree-valued Markov chains
 
 First, install the package 
 
