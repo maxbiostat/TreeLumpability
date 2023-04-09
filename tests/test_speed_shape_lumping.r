@@ -12,9 +12,9 @@ if (compute) {
   comp.time <- system.time(SPR.mat <-
                              as.matrix(rspr_matrix(all.trees) > 0) + 0)
   save(SPR.mat,
-       file = paste0("saved_data/SPR_matrix_n=", n, ".RData"))
+       file = paste0("../saved_data/SPR_matrix_n=", n, ".RData"))
 } else{
-  load(paste0("saved_data/SPR_matrix_n=", n, ".RData"))
+  load(paste0("../saved_data/SPR_matrix_n=", n, ".RData"))
 }
 
 ### Building the MH transition matrix
