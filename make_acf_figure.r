@@ -3,22 +3,7 @@
 library(BinaryMarkovChains)
 library(ggplot2)
 
-load_clade_matrix <- function(mapfile) {
-  raw <- read.table(mapfile, header = TRUE)
-  inds <- raw[-1,-1]
-  #
-  freqfile <- gsub("cladematrix", "cladetable", mapfile)
-  freqfile <- gsub(".cmap", ".txt", freqfile)
-  ctable <- read.table(freqfile, header = TRUE)
-  freqs <- subset(ctable, Cred < 1)
-  pos <- match(freqs$No., ctable$No.)
-  #
-  final.inds <- inds[, pos]
-  colnames(final.inds)  <- freqs$Members
-  return(list(clade_frequencies = freqs,
-              clade_indicators = final.inds))
-}
-
+source("aux.r")
 get_data <- function(ntaxa, lazyr, index) {
   fpath1 <-
     paste0("~/DUMP/data_repo/derived_data/chains_n=", ntaxa, "/")
